@@ -10,7 +10,7 @@ The DAT files that I was provided assume that coordinates are N Lat and W Lon, s
 
 Python3 (Tested with Python 3.9.13)
 
-Only imports are OS and Math, so it should run on a standard Python implementation.
+Only imports are OS, Argparse and Math, so it should run on a standard Python implementation.
 
 ## Instructions for use
 
