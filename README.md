@@ -53,4 +53,4 @@ Additional contributors will be listed here.
 
 # License
 
-This is licensed under GPL 3.0.
+This is licensed under [GPL 3.0](./LICENSE).
