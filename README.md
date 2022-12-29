@@ -28,7 +28,7 @@ To process multiple facilities at once:
 1. Create folders for each facility in the `dat_source` directory.
 2. Place the DAT files for each facility in their respective facility folders.
    <br/>**Note:** the script will use the file names as the export name (e.g. `/dat_source/IAD/Base.dat` will be saved as `/output/IAD_Base.geojson`)
-   <br/><img src="./resources/facilities.jpg" alt="Folder Structure" width="200"/>
+   <br/><br/><img src="./resources/facilities.jpg" alt="Folder Structure" width="200"/>
 3. Run the following command:
    <br/>
    ```
@@ -37,7 +37,8 @@ To process multiple facilities at once:
 
 ### Optional Command Line Arguments
 
-The optional `--radius X` argument is provided because the DAT files include everything that is also shown in the PDF accompanying the DAT file, to include the border and text at the bottom left and right. This border is generally around 150NM from the center point (point of tangency) declared in the file, and there is a radial line showing MAG versus TRUE that extends inside of the border, necessitating a radius smaller than the border itself. The radius may be smaller for smaller TRACONS or Towers, so the default of 140 can be overridden by passing `--radius X`, where `XX` is an integer representing the NM from the center of the map. Example: `python3 convert.py --radius 50`
+The optional `--radius X` argument is provided because the DAT files include everything that is also shown in the PDF accompanying the DAT file, to include the border and text at the bottom left and right. This border is generally around 150NM from the center point (point of tangency) declared in the file, and there is a radial line showing MAG versus TRUE that extends inside of the border, necessitating a radius smaller than the border itself. The radius may be smaller for smaller TRACONS or Towers, so the default of 140 can be overridden by passing `--radius X`, where `XX` is an integer representing the NM from the center of the map.
+<br/>Example: `python3 convert.py --radius 50`
 <br/>
 
 <p align="center">
