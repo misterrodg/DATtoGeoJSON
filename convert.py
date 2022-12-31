@@ -161,7 +161,7 @@ class DAT:
 
 
 def main():
-    DEFAULT_RADIUS_LIMIT = 40
+    DEFAULT_RADIUS_LIMIT = 140
     # Set up Argument Handling
     parser = argparse.ArgumentParser(description="DATtoGeoJSON Converter")
     parser.add_argument(
