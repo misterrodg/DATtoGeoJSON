@@ -4,7 +4,7 @@ A simple Python-based FAA DAT to GeoJSON Converter for use with CRC.
 
 ## Format Note
 
-CRC uses EPSG:4326 format for points. Many online GeoJSON viewers, such as [GeoJSON.io](https://geojson.io/), use different formats that place the Longitude first. For this reason, if you test the default output of this script in many of those resources, it will not render properly. If you would like to render a test output, use the `--test flag`.
+CRC uses EPSG:4326 format for points. Many online GeoJSON viewers, such as [GeoJSON.io](https://geojson.io/), use different formats that place the Longitude first. For this reason, if you test the default output of this script in many of those resources, it will not render properly. If you would like to render a test output, use the `--test` flag.
 
 ## Limitations
 
