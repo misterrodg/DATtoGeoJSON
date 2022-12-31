@@ -169,20 +169,22 @@ def main():
     parser.add_argument(
         "--test", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
-    print("Limiting to " + str(radiusLimit))
     radiusLimit = DEFAULT_RADIUS_LIMIT
     if args.radius != None or args.test != None:
+        print("\nOverriding Defaults")
         if args.radius != None:
             radiusLimit = args.radius
         testFormat = False
+            print(">>> Using radius " + str(radiusLimit))
         if args.test != None:
             testFormat = True
+            print(">>> Using Lon/Lat formatting.")
 
     # Set up Script
     fileHandler = FileHandler()
     sourceDir = "dat_source"
     outputDir = "output"
-    print("Initializing GeoJSON Converter")
+    print("\nInitializing GeoJSON Converter")
     fileHandler.checkDir(outputDir)
     fileHandler.deleteAllInSubdir(".geojson", outputDir)
     fileList = fileHandler.searchForType(".dat", sourceDir)
@@ -197,7 +199,7 @@ def main():
               "Processing " + fileName + ".dat")
         DAT(sourceDir, outputDir, folder, fileName, radiusLimit, testFormat)
         fileCount += 1
-    print("***** Conversion complete. Files located in ./" + outputDir)
+    print("\n>>>>> Conversion complete. Files located in ./" + outputDir + " <<<<<\n")
 
 
 if __name__ == "__main__":
