@@ -64,8 +64,11 @@ class Coordinate:
         distance = arc * self.DEG_TO_MIN
         return distance
 
-    def toString(self):
-        return "[" + str(self.lon) + ", " + str(self.lat) + "]"
+    def toString(self, testFormat=False):
+        result = "[" + str(self.lat) + ", " + str(self.lon) + "]"
+        if (testFormat):
+            result = "[" + str(self.lon) + ", " + str(self.lat) + "]"
+        return result
 
 
 class GeoJSON:
@@ -100,7 +103,7 @@ class LineString:
 
 
 class DAT:
-    def __init__(self, sourceFolder, outputFolder, facFolder, fileName, limit=None):
+    def __init__(self, sourceFolder, outputFolder, facFolder, fileName, limit=None, testFormat=False):
         self.fileName = "./" + sourceFolder + "/" + facFolder + "/" + fileName + ".dat"
         folderPrefix = ""
         if facFolder != "":
@@ -108,6 +111,7 @@ class DAT:
         self.outputFileName = "./" + outputFolder + \
             "/" + folderPrefix + fileName + ".geojson"
         self.limit = limit
+        self.testFormat = testFormat
         self.pot = None
         self.read()
 
@@ -143,7 +147,8 @@ class DAT:
                 else:
                     coordinate = self.lineToCoordinate(line)
                     if coordinate != -1:
-                        lineString.addCoordinate(coordinate.toString())
+                        lineString.addCoordinate(
+                            coordinate.toString(self.testFormat))
 
         data = geoJson.toString()
         if os.path.exists(self.outputFileName):
@@ -156,13 +161,23 @@ class DAT:
 
 
 def main():
+    DEFAULT_RADIUS_LIMIT = 40
     # Set up Argument Handling
     parser = argparse.ArgumentParser(description="DATtoGeoJSON Converter")
     parser.add_argument(
         "--radius", type=int, help="The limit radius from the center point declared in the file.")
+    parser.add_argument(
+        "--test", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
-    radiusLimit = args.radius if args.radius != None else 140
     print("Limiting to " + str(radiusLimit))
+    radiusLimit = DEFAULT_RADIUS_LIMIT
+    if args.radius != None or args.test != None:
+        if args.radius != None:
+            radiusLimit = args.radius
+        testFormat = False
+        if args.test != None:
+            testFormat = True
+
     # Set up Script
     fileHandler = FileHandler()
     sourceDir = "dat_source"
@@ -180,7 +195,7 @@ def main():
         fileName = fileData[1].replace(".dat", "")
         print("[" + str(fileCount + 1) + "/" + numFiles + "] " +
               "Processing " + fileName + ".dat")
-        DAT(sourceDir, outputDir, folder, fileName, radiusLimit)
+        DAT(sourceDir, outputDir, folder, fileName, radiusLimit, testFormat)
         fileCount += 1
     print("***** Conversion complete. Files located in ./" + outputDir)
 
