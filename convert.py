@@ -170,11 +170,11 @@ def main():
         "--test", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     radiusLimit = DEFAULT_RADIUS_LIMIT
+    testFormat = False
     if args.radius != None or args.test != None:
         print("\nOverriding Defaults")
         if args.radius != None:
             radiusLimit = args.radius
-        testFormat = False
             print(">>> Using radius " + str(radiusLimit))
         if args.test != None:
             testFormat = True
