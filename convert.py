@@ -31,6 +31,20 @@ def tryFloatParse(value):
     return result
 
 
+def checkRange(rangeValue):
+    result = None
+    if rangeValue != None and rangeValue != '':
+        result = tryIntParse(rangeValue)
+    return result
+
+
+def checkCenterpoint(latValue, lonValue):
+    result = None
+    if latValue != None and latValue != '' and lonValue != None and lonValue != '':
+        lat = tryFloatParse(latValue)
+        lon = tryFloatParse(lonValue)
+        result = Coordinate(lat, lon)
+    return result
 
 
 
