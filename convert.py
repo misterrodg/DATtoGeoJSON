@@ -1,5 +1,10 @@
-import os
 import argparse
+import os
+
+from modules.Coordinate import Coordinate
+from modules.CSVHandler import CSVHandler
+from modules.DAT import DAT
+from modules.FileHandler import FileHandler
 
 
 
