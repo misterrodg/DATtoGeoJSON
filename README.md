@@ -12,9 +12,9 @@ The DAT files that I was provided assume that coordinates are N Lat and W Lon, s
 
 ## Requirements
 
-Python3 (Tested with Python 3.9.13)
+Python3.8 or Later (Tested with Python 3.9.13)
 
-Only imports are OS, Argparse, and Math, so it should run on a standard Python implementation.
+Only imports are Argparse, CSV, Math, and OS, so it should run on a standard Python implementation.
 
 ## Instructions for use
 
@@ -31,7 +31,7 @@ To process multiple facilities at once:
 
 1. Create folders for each facility in the `dat_source` directory.
 2. Place the DAT files for each facility in their respective facility folders.
-   <br/>**Note:** the script will use the file names as the export name (e.g. `/dat_source/IAD/Base.dat` will be saved as `/output/IAD_Base.geojson`)
+   <br/>**Note:** The script will use the file names as the export name (e.g. `/dat_source/IAD/Base.dat` will be saved as `/output/IAD_Base.geojson`)
    <br/><br/><img src="./resources/facilities.jpg" alt="Folder Structure" width="200"/>
 3. Run the following command:
    <br/>
@@ -49,9 +49,31 @@ The optional `--radius X` argument is provided because the DAT files include eve
 <img src="./resources/border.jpg" alt="Folder Structure" width="400"/>
 </p>
 
+If you have a set of files where you wish to provide per-file overrides, the `--filelist` argument is available to facilitate that. Please follow these instructions carefully:
+
+1. Run the script with the `--filelist` flag:
+   ```
+   python3 convert.py --filelist
+   ```
+2. Find the FileList.csv file in the `output` folder.
+3. Open the FileList.csv in a spreadsheet program (Excel, Numbers, etc.), or better, a text editor if you are familiar enough with raw CSV.
+   <br/>**Note:** Do not alter the headers, or the data in the first column (Source).
+4. Provide override data:
+   - Optional: Range must be an integer or blank.
+   - Optional: OutputFileName must be a string or blank.
+   - Optional: CenterPointLat and CenterPointLon must both be present as decimal Lat/Lons, and the Lon must be positive.
+     <br/>**Note:** The FAA format assumes west lons are positive in the DAT files.
+5. Save the override data in the FileList.csv.
+6. Run the script with the `--readfile` flag:
+   ```
+   python3 convert.py --readfile
+   ```
+
+**Note:** The script will try to make sense of the values as best that it can. If the program editing the CSV adds odd formatting, it could cause odd results. If files are missing from the export, or ranges are not being set to the override values, it is likely because it did not understand the data in the field (data unable to be parsed into an int or float gets silently ignored at the moment).
+
 # Contributions
 
-Want to contribute? Check out the [Open Issues](https://github.com/misterrodg/DATtoGeoJSON/issues), or fork and open a [Pull Request](https://github.com/misterrodg/DATtoGeoJSON/pulls).
+Want to contribute? Check out the [Open Issues](https://github.com/misterrodg/DATtoGeoJSON/issues), fork, and open a [Pull Request](https://github.com/misterrodg/DATtoGeoJSON/pulls).
 
 Additional contributors will be listed here.
 
