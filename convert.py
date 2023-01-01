@@ -9,8 +9,26 @@ from modules.FileHandler import FileHandler
 
 
 
+def tryIntParse(value):
+    result = None
+    try:
+        intParse = int(value)
+    except ValueError as verr:
+        pass
+    if isinstance(intParse, int):
+        result = intParse
+    return result
 
 
+def tryFloatParse(value):
+    result = None
+    try:
+        floatParse = float(value)
+    except ValueError as verr:
+        pass
+    if isinstance(floatParse, float):
+        result = floatParse
+    return result
 
 
 
