@@ -1,10 +1,10 @@
 # DATtoGeoJSON
 
-A simple Python-based FAA DAT to GeoJSON Converter for use with CRC.
+A simple Python-based FAA DAT to GeoJSON Converter for use with [vNAS](https://virtualnas.net/).
 
 ## Testing Note
 
-If you would like to test your conversions prior to loading them into vNAS, [GeoJSON.io](https://geojson.io/) is a great tool.
+If you would like to test your conversions prior to loading them into [vNAS Data Admin](https://data-admin.virtualnas.net/login), [GeoJSON.io](https://geojson.io/) is a great tool.
 
 ## Limitations
 
