@@ -7,7 +7,7 @@ from modules.DAT import DAT
 from modules.FileHandler import FileHandler
 
 
-def processFiles(sourceDir, outputDir, radiusLimit=None, testFormat=False):
+def processFiles(sourceDir, outputDir, radiusLimit=None):
     fileHandler = FileHandler()
     print("\nInitializing GeoJSON Converter")
     fileHandler.checkDir(outputDir)
@@ -22,7 +22,7 @@ def processFiles(sourceDir, outputDir, radiusLimit=None, testFormat=False):
         fileName = fileData[1].replace(".dat", "")
         print("[" + str(fileCount + 1) + "/" + numFiles + "] " +
               "Processing " + fileName + ".dat")
-        DAT(sourceDir, outputDir, folder, fileName, radiusLimit, testFormat)
+        DAT(sourceDir, outputDir, folder, fileName, radiusLimit)
         fileCount += 1
     print("\n>>>>> Conversion complete. Files located in ./" + outputDir + " <<<<<\n")
 
@@ -65,7 +65,7 @@ def checkCenterpoint(latValue, lonValue):
     return result
 
 
-def readFileList(sourceDir, outputDir, fileListFileName, testFormat=False):
+def readFileList(sourceDir, outputDir, fileListFileName):
     fileHandler = FileHandler()
     print("\nReading File List")
     fileHandler.checkDir(outputDir)
@@ -96,7 +96,7 @@ def readFileList(sourceDir, outputDir, fileListFileName, testFormat=False):
             print("[" + str(fileCount + 1) + "/" + numFiles + "] " +
                   "Processing " + fileName + ".dat")
             DAT(sourceDir, outputDir, folder, fileName,
-                radiusLimit, testFormat, destFileName, centerpoint)
+                radiusLimit, destFileName, centerpoint)
             fileCount += 1
 
 
@@ -127,24 +127,18 @@ def main():
     parser.add_argument(
         "--radius", type=int, help="The limit radius from the center point declared in the file.")
     parser.add_argument(
-        "--test", action=argparse.BooleanOptionalAction)
-    parser.add_argument(
         "--filelist", action=argparse.BooleanOptionalAction)
     parser.add_argument(
         "--readlist", action=argparse.BooleanOptionalAction)
     args = parser.parse_args()
     radiusLimit = None
-    testFormat = False
     fileList = False
     readList = False
-    if args.radius != None or args.test != None or args.filelist != None or args.readlist != None:
+    if args.radius != None or args.filelist != None or args.readlist != None:
         print("\nOverriding Defaults")
         if args.radius != None:
             radiusLimit = args.radius
             print(">>> Using radius " + str(radiusLimit))
-        if args.test != None:
-            testFormat = True
-            print(">>> Using Lon/Lat formatting.")
         if args.filelist != None:
             fileList = True
             print(">>> Building File List")
@@ -155,9 +149,9 @@ def main():
     if fileList:
         buildFileList(SOURCE_DIR, FILE_LIST_NAME)
     if readList:
-        readFileList(SOURCE_DIR, OUTPUT_DIR, FILE_LIST_NAME, testFormat)
+        readFileList(SOURCE_DIR, OUTPUT_DIR, FILE_LIST_NAME)
     else:
-        processFiles(SOURCE_DIR, OUTPUT_DIR, radiusLimit, testFormat)
+        processFiles(SOURCE_DIR, OUTPUT_DIR, radiusLimit)
 
 
 if __name__ == "__main__":
