@@ -8,7 +8,7 @@ from modules.LineString import LineString
 class DAT:
     DEFAULT_RADIUS_LIMIT = 140
 
-    def __init__(self, sourceFolder, outputFolder, facFolder, fileName, limit=None, testFormat=False, destFileName=None, centerpoint=None):
+    def __init__(self, sourceFolder, outputFolder, facFolder, fileName, limit=None, destFileName=None, centerpoint=None):
         self.fileName = "./" + sourceFolder + "/" + facFolder + "/" + fileName + ".dat"
         folderPrefix = ""
         if facFolder != "":
@@ -24,7 +24,6 @@ class DAT:
         self.pot = None
         if centerpoint != None:
             self.pot = centerpoint
-        self.testFormat = testFormat
         self.read()
 
     def lineToCoordinate(self, line):
@@ -60,7 +59,7 @@ class DAT:
                     coordinate = self.lineToCoordinate(line)
                     if coordinate != -1:
                         lineString.addCoordinate(
-                            coordinate.toString(self.testFormat))
+                            coordinate.toString())
 
         data = geoJson.toString()
         if os.path.exists(self.outputFileName):

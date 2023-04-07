@@ -19,8 +19,6 @@ class Coordinate:
         distance = arc * self.DEG_TO_MIN
         return distance
 
-    def toString(self, testFormat=False):
-        result = "[" + str(self.lat) + ", " + str(self.lon) + "]"
-        if (testFormat):
-            result = "[" + str(self.lon) + ", " + str(self.lat) + "]"
+    def toString(self):
+        result = "[" + str(self.lon) + ", " + str(self.lat) + "]"
         return result
