@@ -1,5 +1,6 @@
 import argparse
 import os
+from typing import Optional
 
 from modules.Coordinate import Coordinate
 from modules.CSVHandler import CSVHandler
@@ -7,7 +8,7 @@ from modules.DAT import DAT
 from modules.FileHandler import FileHandler
 
 
-def processFiles(sourceDir, outputDir, radiusLimit=None):
+def processFiles(sourceDir, outputDir, radiusLimit=None) -> None:
     fileHandler = FileHandler()
     print("\nInitializing GeoJSON Converter")
     fileHandler.checkDir(outputDir)
@@ -27,8 +28,9 @@ def processFiles(sourceDir, outputDir, radiusLimit=None):
     print("\n>>>>> Conversion complete. Files located in ./" + outputDir + " <<<<<\n")
 
 
-def tryIntParse(value):
+def tryIntParse(value) -> Optional[int]:
     result = None
+    intParse = None
     try:
         intParse = int(value)
     except ValueError as verr:
@@ -38,8 +40,9 @@ def tryIntParse(value):
     return result
 
 
-def tryFloatParse(value):
+def tryFloatParse(value) -> Optional[float]:
     result = None
+    floatParse = None
     try:
         floatParse = float(value)
     except ValueError as verr:
@@ -49,23 +52,24 @@ def tryFloatParse(value):
     return result
 
 
-def checkRange(rangeValue):
+def checkRange(rangeValue) -> Optional[int]:
     result = None
     if rangeValue != None and rangeValue != '':
         result = tryIntParse(rangeValue)
     return result
 
 
-def checkCenterpoint(latValue, lonValue):
+def checkCenterpoint(latValue, lonValue) -> Optional[Coordinate]:
     result = None
     if latValue != None and latValue != '' and lonValue != None and lonValue != '':
         lat = tryFloatParse(latValue)
         lon = tryFloatParse(lonValue)
-        result = Coordinate(lat, lon)
+        if lat and lon:
+            result = Coordinate(lat, lon)
     return result
 
 
-def readFileList(sourceDir, outputDir, fileListFileName):
+def readFileList(sourceDir, outputDir, fileListFileName) -> None:
     fileHandler = FileHandler()
     print("\nReading File List")
     fileHandler.checkDir(outputDir)
@@ -100,7 +104,7 @@ def readFileList(sourceDir, outputDir, fileListFileName):
             fileCount += 1
 
 
-def buildFileList(sourceDir, fileListFileName):
+def buildFileList(sourceDir, fileListFileName) -> None:
     fileHandler = FileHandler()
     print("\nFinding Source Files")
     fileHandler.deleteAllInSubdir(".csv", sourceDir)
