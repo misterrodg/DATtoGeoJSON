@@ -59,6 +59,9 @@ class DAT:
                     if coordinate is not None:
                         lineString.addCoordinate(coordinate.toString())
 
+        if len(lineString.coordinates) > 1:
+            geoJson.addFeature(lineString.toString())
+
         data = geoJson.toString()
         if os.path.exists(self.outputFileName):
             os.remove(self.outputFileName)
