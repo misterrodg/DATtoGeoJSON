@@ -36,11 +36,10 @@ class DAT:
         result = Coordinate()
         result.fromDMS(latD, latM, latS, lonD, lonM, lonS)
         if self.pot != None:
-            distance = result.haversineGreatCicleDistance(
-                self.pot.lat, self.pot.lon)
+            distance = result.haversineGreatCircleDistance(self.pot.lat, self.pot.lon)
             if self.limit != None:
                 if distance == 0 or distance > self.limit:
-                    result = -1
+                    result = None
         return result
 
     def read(self):
@@ -57,9 +56,8 @@ class DAT:
                         geoJson.addFeature(lineString.toString())
                 else:
                     coordinate = self.lineToCoordinate(line)
-                    if coordinate != -1:
-                        lineString.addCoordinate(
-                            coordinate.toString())
+                    if coordinate is not None:
+                        lineString.addCoordinate(coordinate.toString())
 
         data = geoJson.toString()
         if os.path.exists(self.outputFileName):

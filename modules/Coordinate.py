@@ -12,11 +12,22 @@ class Coordinate:
         self.lat = latD + (latM / 60) + (latS / (60*60))
         self.lon = -lonD - (lonM / 60) - (lonS / (60*60))
 
-    def haversineGreatCicleDistance(self, lat, lon):
-        theta = self.lon - lon
-        arc = math.degrees(math.acos((math.sin(math.radians(self.lat)) * math.sin(math.radians(lat))) + (
-            math.cos(math.radians(self.lat)) * math.cos(math.radians(lat)) * math.cos(math.radians(theta)))))
-        distance = arc * self.DEG_TO_MIN
+    def haversineGreatCircleDistance(self, lat, lon):
+        # Earth's radius in nautical miles
+        earth_radius_nm = 3440.065
+        
+        # Convert degrees to radians
+        lat1 = math.radians(self.lat)
+        lon1 = math.radians(self.lon)
+        lat2 = math.radians(lat)
+        lon2 = math.radians(lon)
+        
+        # Haversine formula
+        dlat = lat2 - lat1
+        dlon = lon2 - lon1
+        a = math.sin(dlat / 2)**2 + math.cos(lat1) * math.cos(lat2) * math.sin(dlon / 2)**2
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
+        distance = earth_radius_nm * c
         return distance
 
     def toString(self):
